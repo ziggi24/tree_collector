@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Tree List</h1>
+
+{% for tree in trees %}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><a href="{% url 'detail' tree.id %}">{{ tree.name }}</a></span>
+    <p>Age: {{ tree.age }}</p>
+    <p>Height: {{ tree.height }}</p>
+    <p>Species: {{ tree.species }}</p>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
