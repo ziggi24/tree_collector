@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Tree
-from .forms import Tree_Form
+from .forms import Tree_Form, Watering_Form
 
 # Create your views here.
 
@@ -25,7 +25,8 @@ def trees_index(request):
 
 def trees_detail(request, tree_id):
   tree = Tree.objects.get(id=tree_id)
-  context = {'tree': tree}
+  watering_form = Watering_Form()
+  context = {'tree': tree, 'watering_form': watering_form}
   return render(request, 'trees/show.html', context)
 
 def trees_edit(request, tree_id):
@@ -43,4 +44,13 @@ def trees_edit(request, tree_id):
 def trees_delete(request, tree_id):
   Tree.objects.get(id=tree_id).delete()
   return redirect('index')
+
+def add_watering(request, tree_id):
+  watering_form = Watering_Form(request.POST)
+  if watering_form.is_valid():
+    new_watering = watering_form.save(commit=False)
+    new_watering.tree_id = tree_id
+    new_watering.save()
+  return redirect('detail', tree_id=tree_id)
+
 
