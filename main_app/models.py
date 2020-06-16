@@ -18,7 +18,7 @@ FERTILIZERS = (
 )
 
 class Watering(models.Model):
-  date = models.DateField()
+  date = models.DateField('Watering Date')
   fertilizer = models.CharField(max_length=1, choices=FERTILIZERS, default=FERTILIZERS[0][0])
   tree = models.ForeignKey(Tree, on_delete=models.CASCADE, related_name='waterings')
 
