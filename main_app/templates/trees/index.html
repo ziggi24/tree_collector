@@ -2,16 +2,33 @@
 {% block content %}
 
 <h1>Tree List</h1>
-
-{% for tree in trees %}
-<div class="card">
-  <div class="card-content">
-    <span class="card-title"><a href="{% url 'detail' tree.id %}">{{ tree.name }}</a></span>
-    <p>Age: {{ tree.age }}</p>
-    <p>Height: {{ tree.height }}</p>
-    <p>Species: {{ tree.species }}</p>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <form action="{% url 'index'%}" method='POST'>
+          {% csrf_token %}
+          {{ tree_form.as_p }}
+          <input class='btn' type="submit" value="Add Tree">
+        </form>
+      </div>
+    </div>
   </div>
+  <div class="col s6">
+
+    {% for tree in trees %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"><a href="{% url 'detail' tree.id %}">{{ tree.name }}</a></span>
+        <p>Age: {{ tree.age }}</p>
+        <p>Height: {{ tree.height }}</p>
+        <p>Species: {{ tree.species }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
 </div>
-{% endfor %}
 
 {% endblock %}
