@@ -28,3 +28,7 @@ def trees_detail(request, tree_id):
   context = {'tree': tree}
   return render(request, 'trees/show.html', context)
 
+def trees_delete(request, tree_id):
+  Tree.objects.get(id=tree_id).delete()
+  return redirect('index')
+
