@@ -10,7 +10,7 @@
     <p>Species: {{ tree.species }}</p>
   </div>
   <div class="card-action">
-    <a href="" class="btn blue">Edit</a>
+    <a href="{% url 'edit' tree.id%}" class="btn">Edit</a>
     <a href="{%url 'delete' tree.id %}" class="btn red">Delete</a>
   </div>
 </div>

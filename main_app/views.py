@@ -28,6 +28,18 @@ def trees_detail(request, tree_id):
   context = {'tree': tree}
   return render(request, 'trees/show.html', context)
 
+def trees_edit(request, tree_id):
+  tree = Tree.objects.get(id=tree_id)
+  if request.method == 'POST':
+    tree_form = Tree_Form(request.POST, instance = tree)
+    if tree_form.is_valid():
+      tree_form.save()
+      return redirect('detail', tree_id=tree_id)
+  else:
+    tree_form = Tree_Form(instance=tree)
+  context = {'tree': tree, 'tree_form': tree_form}
+  return render(request, 'trees/edit.html', context)
+
 def trees_delete(request, tree_id):
   Tree.objects.get(id=tree_id).delete()
   return redirect('index')

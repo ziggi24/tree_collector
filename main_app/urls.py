@@ -6,5 +6,6 @@ urlpatterns = [
   path('about/', views.about, name='about'), 
   path('trees/', views.trees_index, name='index'),
   path('trees/<int:tree_id>/', views.trees_detail, name='detail'),
-  path('trees/<int:tree_id>/delete', views.trees_delete, name='delete')
+  path('trees/<int:tree_id>/delete', views.trees_delete, name='delete'), 
+  path('trees/<int:tree_id>/edit', views.trees_edit, name='edit')
 ]
