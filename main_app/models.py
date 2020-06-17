@@ -2,11 +2,19 @@ from django.db import models
 
 # Create your models here.
 
+class Worker(models.Model):
+  name = models.CharField(max_length=40)
+  role = models.CharField(max_length=40)
+
+  def __str__(self):
+    return f'{self.name} the {self.role}'
+
 class Tree(models.Model):
   name = models.CharField(max_length=100)
   age = models.CharField(max_length=100)
   height = models.CharField(max_length=100)
   species = models.CharField(max_length=100)
+  workers = models.ManyToManyField(Worker)
 
   def __str__(self):
     return f"{self.name} the {self.species}"
@@ -27,3 +35,4 @@ class Watering(models.Model):
   
   class Meta:
     ordering = ['-date', 'fertilizer']
+

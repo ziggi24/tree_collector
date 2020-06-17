@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Tree
+from .models import Tree, Worker
 from .forms import Tree_Form, Watering_Form
 
 # Create your views here.
@@ -25,8 +25,9 @@ def trees_index(request):
 
 def trees_detail(request, tree_id):
   tree = Tree.objects.get(id=tree_id)
+  available_workers = Worker.objects.exclude(id__in=tree.workers.all().values_list('id'))
   watering_form = Watering_Form()
-  context = {'tree': tree, 'watering_form': watering_form}
+  context = {'tree': tree, 'watering_form': watering_form, 'workers': available_workers}
   return render(request, 'trees/show.html', context)
 
 def trees_edit(request, tree_id):
@@ -51,6 +52,14 @@ def add_watering(request, tree_id):
     new_watering = watering_form.save(commit=False)
     new_watering.tree_id = tree_id
     new_watering.save()
+  return redirect('detail', tree_id=tree_id)
+
+def assoc_worker(request, tree_id, worker_id):
+  Tree.objects.get(id=tree_id).workers.add(worker_id)
+  return redirect('detail', tree_id=tree_id)
+
+def deassoc_worker(request, tree_id, worker_id):
+  Tree.objects.get(id=tree_id).workers.remove(worker_id)
   return redirect('detail', tree_id=tree_id)
 
 
