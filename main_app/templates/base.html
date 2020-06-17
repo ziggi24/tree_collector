@@ -24,11 +24,12 @@
           <li><a href="/about">About</a></li>
 
           {% if user.is_authenticated %}
-          <li><a href="{% url 'index' %}}"></a>All Trees</li>
+          <li><a href="{% url 'index' %}">All Trees</a></li>
           <li><a class='btn red' href="{% url 'logout' %}">Logout</a></li>
 
           {% else %}
           <li><a class='btn green' href="{% url 'login' %}">Login</a></li>
+          <li><a class='btn green' href="{% url 'signup' %}">Signup</a></li>
 
           {% endif %}
 

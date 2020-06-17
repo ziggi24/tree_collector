@@ -11,4 +11,5 @@ urlpatterns = [
   path('trees/<int:tree_id>/add_watering', views.add_watering, name='add_watering'),
   path('trees/<int:tree_id>/assoc_worker/<int:worker_id>', views.assoc_worker, name='assoc_worker'),
   path('trees/<int:tree_id>/deassoc_worker/<int:worker_id>', views.deassoc_worker, name='deassoc_worker'),
+  path('accounts/signup', views.signup, name='signup'),
 ]
